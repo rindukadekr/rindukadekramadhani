@@ -1,0 +1,13 @@
+{% extends "layout.html" %} {% block title %}Verifikasi Selesai{% endblock %} {%
+block content %}
+<div class="container mt-5 text-center">
+  <h2 class="text-success">Pendaftaran Berhasil!</h2>
+  <p class="mt-3">
+    Terima kasih telah melengkapi data pendaftaran. Tunggu pemberitahuan dari
+    admin untuk langkah selanjutnya.
+  </p>
+  <a href="{{ url_for('main.home') }}" class="btn btn-primary mt-4"
+    >Kembali ke Beranda</a
+  >
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "layout.html" %} {% block title %}Pembayaran{% endblock %} {% block
+content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Pembayaran</h2>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <p><strong>Nama:</strong> {{ form.name }}</p>
+      <p><strong>Jurusan:</strong> {{ form.major }}</p>
+      <p><strong>Harga:</strong> Rp {{ "{:,.0f}".format(major_price) }}</p>
+      <form method="POST" action="{{ url_for('main.submit_pembayaran') }}">
+        <div class="mb-3">
+          <label for="payment_method" class="form-label"
+            >Metode Pembayaran</label
+          >
+          <select
+            id="payment_method"
+            name="payment_method"
+            class="form-control"
+            required
+          >
+            <option value="Transfer Bank">Transfer Bank</option>
+            <option value="Dana">Dana</option>
+            <option value="Cash">Cash</option>
+            <option value="QR">QR</option>
+          </select>
+        </div>
+        <input type="hidden" name="amount" value="{{ major_price }}" />
+        <button type="submit" class="btn btn-primary w-100">Bayar</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block styles %}
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+  .card {
+    border-radius: 10px;
+  }
+  .card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .form-label {
+    font-weight: bold;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+</style>
+{% endblock %}

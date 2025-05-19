@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Formulir Pendaftaran{% endblock %}
+
+{% block content %}
+<section class="form-container">
+    <div class="form-box">
+        <h2>Formulir Pendaftaran</h2>
+        <p>Silakan isi formulir di bawah ini untuk melengkapi pendaftaran Anda.</p>
+        <form method="POST" action="{{ url_for('auth.formulir') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.phone.label(class="form-label") }}
+                {{ form.phone(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.address.label(class="form-label") }}
+                {{ form.address(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.birth_date.label(class="form-label") }}
+                {{ form.birth_date(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary btn-block") }}
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

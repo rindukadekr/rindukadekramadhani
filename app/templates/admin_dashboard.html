@@ -1,0 +1,167 @@
+{% extends "layout.html" %} {% block title %}Admin Dashboard{% endblock %} {%
+block content %}
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Admin Dashboard PPDB</h1>
+
+  <!-- Verifikasi Pendaftar -->
+  <div class="mb-5">
+    <div class="card">
+      <div class="card-header bg-warning text-dark">Verifikasi Pendaftar</div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Lengkap</th>
+              <th>Email</th>
+              <th>Telepon</th>
+              <th>Jurusan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in pending_students %}
+            <tr>
+              <td>{{ s.id }}</td>
+              <td>{{ s.name }}</td>
+              <td>{{ s.email }}</td>
+              <td>{{ s.phone }}</td>
+              <td>{{ s.major }}</td>
+              <td>
+                <a
+                  href="{{ url_for('admin.accept_registration', form_id=s.id) }}"
+                  class="btn btn-success btn-sm"
+                  >Terima</a
+                >
+                <a
+                  href="{{ url_for('admin.reject_registration', form_id=s.id) }}"
+                  class="btn btn-danger btn-sm"
+                  >Tolak</a
+                >
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="6" class="text-center">Tidak ada data</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Peserta Diterima -->
+  <div class="mb-5">
+    <div class="card">
+      <div class="card-header bg-success text-white">Peserta Diterima</div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Lengkap</th>
+              <th>Email</th>
+              <th>Telepon</th>
+              <th>Jurusan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in accepted_students %}
+            <tr>
+              <td>{{ s.id }}</td>
+              <td>{{ s.name }}</td>
+              <td>{{ s.email }}</td>
+              <td>{{ s.phone }}</td>
+              <td>{{ s.major }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5" class="text-center">Tidak ada data</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Peserta Tidak Diterima -->
+  <div class="mb-5">
+    <div class="card">
+      <div class="card-header bg-danger text-white">Peserta Tidak Diterima</div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Lengkap</th>
+              <th>Email</th>
+              <th>Telepon</th>
+              <th>Jurusan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in rejected_students %}
+            <tr>
+              <td>{{ s.id }}</td>
+              <td>{{ s.name }}</td>
+              <td>{{ s.email }}</td>
+              <td>{{ s.phone }}</td>
+              <td>{{ s.major }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5" class="text-center">Tidak ada data</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Siswa yang Berhasil Melakukan Pembayaran -->
+  <div class="mb-5">
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        Siswa yang Berhasil Melakukan Pembayaran
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Lengkap</th>
+              <th>Email</th>
+              <th>Telepon</th>
+              <th>Jurusan</th>
+              <th>Jumlah Pembayaran</th>
+              <th>Metode Pembayaran</th>
+              <th>Tanggal Pembayaran</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in paid_students %}
+            <tr>
+              <td>{{ p.Formulir.id }}</td>
+              <td>{{ p.Formulir.name }}</td>
+              <td>{{ p.Formulir.email }}</td>
+              <td>{{ p.Formulir.phone }}</td>
+              <td>{{ p.Formulir.major }}</td>
+              <td>{{ "{:,.0f}".format(p.amount) }}</td>
+              <td>{{ p.payment_method }}</td>
+              <td>{{ p.created_at }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="8" class="text-center">Tidak ada data</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

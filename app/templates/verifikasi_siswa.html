@@ -1,0 +1,151 @@
+{% extends "layout.html" %} {% block title %}Verifikasi Siswa{% endblock %} {%
+block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h3>Verifikasi Siswa</h3>
+        </div>
+        <div class="card-body">
+          <p class="text-center">
+            Selamat datang, <strong>{{ user.username }}</strong>! Silakan isi
+            formulir di bawah ini untuk melengkapi data Anda.
+          </p>
+          <form
+            method="POST"
+            action="{{ url_for('main.submit_verifikasi') }}"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label for="name" class="form-label">Nama Lengkap</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Masukkan nama lengkap Anda"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                placeholder="Masukkan email Anda"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Nomor Telepon</label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                class="form-control"
+                placeholder="Masukkan nomor telepon Anda"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Alamat</label>
+              <textarea
+                id="address"
+                name="address"
+                class="form-control"
+                rows="3"
+                placeholder="Masukkan alamat lengkap Anda"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="birth_date" class="form-label">Tanggal Lahir</label>
+              <input
+                type="date"
+                id="birth_date"
+                name="birth_date"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="school_origin" class="form-label">Asal Sekolah</label>
+              <input
+                type="text"
+                id="school_origin"
+                name="school_origin"
+                class="form-control"
+                placeholder="Masukkan asal sekolah Anda"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="major" class="form-label">Pilih Jurusan</label>
+              <select id="major" name="major" class="form-control" required>
+                <option value="Rekayasa Perangkat Lunak (RPL)">
+                  Rekayasa Perangkat Lunak (RPL)
+                </option>
+                <option value="Perhotelan">Perhotelan</option>
+                <option value="Teknik Sepeda Motor (TSM)">
+                  Teknik Sepeda Motor (TSM)
+                </option>
+                <option value="Teknik Komputer dan Jaringan (TKJ)">
+                  Teknik Komputer dan Jaringan (TKJ)
+                </option>
+                <option value="Keperawatan">Keperawatan</option>
+                <option value="Farmasi">Farmasi</option>
+                <option value="Desain Komunikasi Visual (DKV)">
+                  Desain Komunikasi Visual (DKV)
+                </option>
+                <option value="Tata Rias dan Kecantikan">
+                  Tata Rias dan Kecantikan
+                </option>
+                <option value="Tata Busana">Tata Busana</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="foto_ijazah" class="form-label"
+                >Unggah Foto Ijazah</label
+              >
+              <input
+                type="file"
+                id="foto_ijazah"
+                name="foto_ijazah"
+                class="form-control"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block styles %}
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+  .card {
+    border-radius: 10px;
+  }
+  .card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .form-label {
+    font-weight: bold;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+</style>
+{% endblock %}

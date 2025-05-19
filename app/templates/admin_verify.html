@@ -1,0 +1,27 @@
+{% extends "layout.html" %} {% block title %}Admin Verification{% endblock %} {%
+block content %}
+<h2>Pending User Verifications</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>
+        <form method="POST">
+          <input type="hidden" name="user_id" value="{{ user.id }}" />
+          <button type="submit" class="btn btn-success btn-sm">Verify</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
