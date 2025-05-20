@@ -15,7 +15,11 @@ block content %}
               <th>Nama Lengkap</th>
               <th>Email</th>
               <th>Telepon</th>
+              <th>Alamat</th>
+              <th>Tanggal Lahir</th>
+              <th>Asal Sekolah</th>
               <th>Jurusan</th>
+              <th>Foto Ijazah</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -26,7 +30,20 @@ block content %}
               <td>{{ s.name }}</td>
               <td>{{ s.email }}</td>
               <td>{{ s.phone }}</td>
+              <td>{{ s.address }}</td>
+              <td>{{ s.birth_date }}</td>
+              <td>{{ s.school_origin }}</td>
               <td>{{ s.major }}</td>
+              <td>
+                {% if s.foto_ijazah %}
+                <img
+                  src="{{ url_for('main.uploaded_file', filename=s.foto_ijazah) }}"
+                  alt="Ijazah"
+                  style="max-width: 120px; max-height: 120px"
+                  class="img-thumbnail"
+                />
+                {% else %} - {% endif %}
+              </td>
               <td>
                 <a
                   href="{{ url_for('admin.accept_registration', form_id=s.id) }}"
@@ -42,7 +59,7 @@ block content %}
             </tr>
             {% else %}
             <tr>
-              <td colspan="6" class="text-center">Tidak ada data</td>
+              <td colspan="10" class="text-center">Tidak ada data</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -63,7 +80,11 @@ block content %}
               <th>Nama Lengkap</th>
               <th>Email</th>
               <th>Telepon</th>
+              <th>Alamat</th>
+              <th>Tanggal Lahir</th>
+              <th>Asal Sekolah</th>
               <th>Jurusan</th>
+              <th>Foto Ijazah</th>
             </tr>
           </thead>
           <tbody>
@@ -73,11 +94,24 @@ block content %}
               <td>{{ s.name }}</td>
               <td>{{ s.email }}</td>
               <td>{{ s.phone }}</td>
+              <td>{{ s.address }}</td>
+              <td>{{ s.birth_date }}</td>
+              <td>{{ s.school_origin }}</td>
               <td>{{ s.major }}</td>
+              <td>
+                {% if s.foto_ijazah %}
+                <img
+                  src="{{ url_for('main.uploaded_file', filename=s.foto_ijazah) }}"
+                  alt="Ijazah"
+                  style="max-width: 120px; max-height: 120px"
+                  class="img-thumbnail"
+                />
+                {% else %} - {% endif %}
+              </td>
             </tr>
             {% else %}
             <tr>
-              <td colspan="5" class="text-center">Tidak ada data</td>
+              <td colspan="9" class="text-center">Tidak ada data</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -98,7 +132,11 @@ block content %}
               <th>Nama Lengkap</th>
               <th>Email</th>
               <th>Telepon</th>
+              <th>Alamat</th>
+              <th>Tanggal Lahir</th>
+              <th>Asal Sekolah</th>
               <th>Jurusan</th>
+              <th>Foto Ijazah</th>
             </tr>
           </thead>
           <tbody>
@@ -108,11 +146,24 @@ block content %}
               <td>{{ s.name }}</td>
               <td>{{ s.email }}</td>
               <td>{{ s.phone }}</td>
+              <td>{{ s.address }}</td>
+              <td>{{ s.birth_date }}</td>
+              <td>{{ s.school_origin }}</td>
               <td>{{ s.major }}</td>
+              <td>
+                {% if s.foto_ijazah %}
+                <img
+                  src="{{ url_for('main.uploaded_file', filename=s.foto_ijazah) }}"
+                  alt="Ijazah"
+                  style="max-width: 120px; max-height: 120px"
+                  class="img-thumbnail"
+                />
+                {% else %} - {% endif %}
+              </td>
             </tr>
             {% else %}
             <tr>
-              <td colspan="5" class="text-center">Tidak ada data</td>
+              <td colspan="9" class="text-center">Tidak ada data</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -149,9 +200,12 @@ block content %}
               <td>{{ p.Formulir.email }}</td>
               <td>{{ p.Formulir.phone }}</td>
               <td>{{ p.Formulir.major }}</td>
-              <td>{{ "{:,.0f}".format(p.amount) }}</td>
-              <td>{{ p.payment_method }}</td>
-              <td>{{ p.created_at }}</td>
+              <td>
+                {% if p.amount is not none %} {{ "{:,.0f}".format(p.amount) }}
+                {% else %} - {% endif %}
+              </td>
+              <td>{{ p.payment_method or '-' }}</td>
+              <td>{{ p.created_at or '-' }}</td>
             </tr>
             {% else %}
             <tr>

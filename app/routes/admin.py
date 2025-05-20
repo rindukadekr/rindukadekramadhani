@@ -8,10 +8,7 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 @admin_bp.route('/dashboard')
 @login_required
 def dashboard():
-    if not current_user.is_admin:
-        flash('Anda tidak memiliki akses ke halaman ini.', 'danger')
-        return redirect(url_for('main.home'))
-
+    # Hanya user yang login yang bisa akses halaman admin, tidak perlu is_admin
     pending_students = Formulir.query.filter_by(status="Pending").all()
     accepted_students = Formulir.query.filter_by(status="Accepted").all()
     rejected_students = Formulir.query.filter_by(status="Rejected").all()
@@ -33,7 +30,12 @@ def accept_registration(form_id):
     form.status = "Accepted"
     db.session.commit()
     flash(f"Pendaftaran {form.name} telah diterima. Peserta dapat melanjutkan ke pembayaran.", "success")
-    return redirect(url_for('admin.dashboard'))
+    # Redirect ke halaman pembayaran untuk user yang bersangkutan
+    if current_user.id == form.user_id:
+        return redirect(url_for('main.pembayaran'))
+    else:
+        # Jika admin menerima pendaftaran milik user lain, tetap redirect ke dashboard admin
+        return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/reject/<int:form_id>')
 @login_required

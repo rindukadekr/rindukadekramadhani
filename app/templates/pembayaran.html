@@ -1,32 +1,61 @@
 {% extends "layout.html" %} {% block title %}Pembayaran{% endblock %} {% block
 content %}
 <div class="container mt-5">
-  <h2 class="text-center mb-4">Pembayaran</h2>
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <p><strong>Nama:</strong> {{ form.name }}</p>
-      <p><strong>Jurusan:</strong> {{ form.major }}</p>
-      <p><strong>Harga:</strong> Rp {{ "{:,.0f}".format(major_price) }}</p>
-      <form method="POST" action="{{ url_for('main.submit_pembayaran') }}">
-        <div class="mb-3">
-          <label for="payment_method" class="form-label"
-            >Metode Pembayaran</label
-          >
-          <select
-            id="payment_method"
-            name="payment_method"
-            class="form-control"
-            required
-          >
-            <option value="Transfer Bank">Transfer Bank</option>
-            <option value="Dana">Dana</option>
-            <option value="Cash">Cash</option>
-            <option value="QR">QR</option>
-          </select>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h3>Pembayaran</h3>
         </div>
-        <input type="hidden" name="amount" value="{{ major_price }}" />
-        <button type="submit" class="btn btn-primary w-100">Bayar</button>
-      </form>
+        <div class="card-body">
+          <p><strong>Nama:</strong> {{ form.name }}</p>
+          <p><strong>Jurusan:</strong> {{ form.major }}</p>
+          {% set jurusan_harga = { 'Rekayasa Perangkat Lunak (RPL)': 7500000,
+          'Perhotelan': 5000000, 'Teknik Sepeda Motor (TSM)': 6000000, 'Teknik
+          Komputer dan Jaringan (TKJ)': 7000000, 'Keperawatan': 6500000,
+          'Farmasi': 6500000, 'Desain Komunikasi Visual (DKV)': 7000000, 'Tata
+          Rias dan Kecantikan': 5000000, 'Tata Busana': 5000000 } %}
+          <p>
+            <strong>Harga:</strong>
+            {% if form.major in jurusan_harga %} Rp {{
+            "{:,.0f}".format(jurusan_harga[form.major]) }} {% else %} - {% endif
+            %}
+          </p>
+          {% if form.major in jurusan_harga %}
+          <div class="alert alert-info mb-4">
+            <strong>Keterangan Harga:</strong><br />
+            {{ form.major }}: Rp {{ "{:,.0f}".format(jurusan_harga[form.major])
+            }}
+          </div>
+          {% endif %}
+          <form method="POST" action="{{ url_for('main.pembayaran') }}">
+            <div class="mb-3">
+              <label for="payment_method" class="form-label"
+                >Metode Pembayaran</label
+              >
+              <select
+                id="payment_method"
+                name="payment_method"
+                class="form-control"
+                required
+              >
+                <option value="">Pilih Metode</option>
+                <option value="Transfer Bank">Transfer Bank</option>
+                <option value="Tunai">Tunai</option>
+                <option value="E-Wallet">E-Wallet</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="amount" class="form-label">Jumlah Pembayaran</label>
+              <input type="text" id="amount" name="amount" class="form-control"
+              value="{% if form.major in jurusan_harga %}Rp {{
+              "{:,.0f}".format(jurusan_harga[form.major]) }}{% endif %}"
+              required readonly />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Bayar</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

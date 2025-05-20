@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from app.models import Registrasi, db
+from app.models import Registrasi, Formulir, db
 from flask_login import login_user, login_required, current_user
 
 main_bp = Blueprint('main', __name__)
@@ -39,10 +39,75 @@ def register():
         db.session.commit()
         login_user(new_user)
         flash('Pendaftaran berhasil! Silakan lengkapi verifikasi siswa.', 'success')
+        # Redirect langsung ke halaman verifikasi siswa
         return redirect(url_for('main.verifikasi_siswa'))
     return render_template('register.html')
 
-@main_bp.route('/verifikasi_siswa')
+@main_bp.route('/verifikasi_siswa', methods=['GET', 'POST'])
 @login_required
 def verifikasi_siswa():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        address = request.form.get('address')
+        birth_date_str = request.form.get('birth_date')
+        school_origin = request.form.get('school_origin')
+        major = request.form.get('major')
+        foto_ijazah = request.files.get('foto_ijazah')
+
+        # Convert birth_date string to Python date object
+        from datetime import datetime
+        try:
+            birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d').date()
+        except Exception:
+            flash('Format tanggal lahir tidak valid.', 'danger')
+            return redirect(url_for('main.verifikasi_siswa'))
+
+        # Simpan data ke Formulir
+        filename = None
+        if foto_ijazah:
+            from werkzeug.utils import secure_filename
+            import os
+            UPLOAD_FOLDER = 'c:/Users/user/Documents/ppdb sederhana/uploads'
+            filename = secure_filename(foto_ijazah.filename)
+            foto_ijazah.save(os.path.join(UPLOAD_FOLDER, filename))
+
+        new_formulir = Formulir(
+            user_id=current_user.id,
+            name=name,
+            email=email,
+            phone=phone,
+            address=address,
+            birth_date=birth_date,
+            school_origin=school_origin,
+            major=major,
+            foto_ijazah=filename
+        )
+        db.session.add(new_formulir)
+        db.session.commit()
+        flash('Data verifikasi berhasil dikirim. Silakan menunggu persetujuan admin.', 'info')
+        return redirect(url_for('main.verifikasi_selesai'))
     return render_template('verifikasi_siswa.html', user=current_user)
+
+@main_bp.route('/verifikasi_selesai')
+@login_required
+def verifikasi_selesai():
+    return render_template('verifikasi_selesai.html', user=current_user)
+
+@main_bp.route('/uploads/<filename>')
+def uploaded_file(filename):
+    import os
+    from flask import send_from_directory
+    UPLOAD_FOLDER = 'c:/Users/user/Documents/ppdb sederhana/uploads'
+    return send_from_directory(UPLOAD_FOLDER, filename)
+
+@main_bp.route('/pembayaran')
+@login_required
+def pembayaran():
+    # Pastikan hanya siswa yang sudah diterima yang bisa akses pembayaran
+    form = Formulir.query.filter_by(user_id=current_user.id).first()
+    if not form or form.status != "Accepted":
+        flash('Anda belum diterima oleh admin. Tunggu pemberitahuan lebih lanjut.', 'danger')
+        return redirect(url_for('main.verifikasi_selesai'))
+    return render_template('pembayaran.html', user=current_user, form=form)

@@ -1,172 +1,149 @@
 {% extends "layout.html" %} {% block title %}PPDB Sederhana{% endblock %} {%
 block content %}
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="#">PPDB Sederhana</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.register') }}">Daftar</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.login') }}">Masuk</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Admin</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- Hero Section -->
-<div class="hero-section text-center text-white">
-  <div class="container">
-    <h1 class="display-4 mb-3">SISTEM INFORMASI PPDB ONLINE</h1>
+<!-- Custom Hero Section -->
+<section class="custom-hero d-flex align-items-center">
+  <div class="container text-center">
+    <h1 class="display-3 fw-bold mb-3">PPDB Sederhana</h1>
     <p class="lead mb-4">
-      Selamat datang di sistem informasi penerimaan siswa baru.<br />
-      Silakan daftar, login, atau akses halaman admin untuk mengelola data
-      pendaftar.
+      Solusi modern untuk pendaftaran siswa baru secara online.<br />
+      Mudah, cepat, dan transparan untuk semua calon peserta didik.
     </p>
-    <div class="mt-4">
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
       <a
         href="{{ url_for('main.register') }}"
-        class="btn btn-primary btn-lg me-2"
-        >Daftar</a
+        class="btn btn-gradient px-4 py-2"
+        >Daftar Sekarang</a
       >
       <a
         href="{{ url_for('main.login') }}"
-        class="btn btn-outline-light btn-lg me-2"
+        class="btn btn-outline-light px-4 py-2"
         >Masuk</a
       >
-      <a href="{{ url_for('admin.dashboard') }}" class="btn btn-success btn-lg"
+      <a href="{{ url_for('admin.dashboard') }}" class="btn btn-admin px-4 py-2"
         >Admin</a
       >
     </div>
   </div>
-</div>
+</section>
 
-<!-- Info Section -->
+<!-- Info Grid Section -->
 <div class="container mt-5">
   <div class="row g-4">
     <div class="col-md-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-body text-center">
-          <img
-            src="https://img.icons8.com/ios-filled/50/007bff/edit-user.png"
-            alt="Daftar"
-            class="mb-3"
-          />
-          <h5 class="card-title">Pendaftaran Mudah</h5>
-          <p class="card-text">
-            Isi formulir pendaftaran secara online dengan proses yang cepat dan
-            mudah.
-          </p>
+      <div
+        class="info-card shadow-sm h-100 text-center p-4 bg-primary text-white"
+      >
+        <div class="icon-circle mb-3 bg-white text-primary mx-auto">
+          <i class="bi bi-person-plus" style="font-size: 2rem"></i>
         </div>
+        <h5 class="fw-bold mb-2">Pendaftaran Online</h5>
+        <p class="mb-0">
+          Proses pendaftaran siswa baru yang sepenuhnya digital dan paperless.
+        </p>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-body text-center">
-          <img
-            src="https://img.icons8.com/ios-filled/50/007bff/search--v1.png"
-            alt="Pantau"
-            class="mb-3"
-          />
-          <h5 class="card-title">Pantau Status</h5>
-          <p class="card-text">
-            Cek status pendaftaran dan verifikasi data Anda secara real-time.
-          </p>
+      <div
+        class="info-card shadow-sm h-100 text-center p-4 bg-success text-white"
+      >
+        <div class="icon-circle mb-3 bg-white text-success mx-auto">
+          <i class="bi bi-search" style="font-size: 2rem"></i>
         </div>
+        <h5 class="fw-bold mb-2">Pantau Status</h5>
+        <p class="mb-0">
+          Cek status pendaftaran, verifikasi, dan pembayaran secara real-time.
+        </p>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-body text-center">
-          <img
-            src="https://img.icons8.com/ios-filled/50/007bff/administrator-male.png"
-            alt="Admin"
-            class="mb-3"
-          />
-          <h5 class="card-title">Akses Admin</h5>
-          <p class="card-text">
-            Admin dapat mengelola data pendaftar, verifikasi, dan pembayaran
-            dengan mudah.
-          </p>
+      <div
+        class="info-card shadow-sm h-100 text-center p-4 bg-warning text-dark"
+      >
+        <div class="icon-circle mb-3 bg-white text-warning mx-auto">
+          <i class="bi bi-people" style="font-size: 2rem"></i>
         </div>
+        <h5 class="fw-bold mb-2">Akses Admin</h5>
+        <p class="mb-0">
+          Admin dapat mengelola data pendaftar, verifikasi, dan laporan
+          pembayaran dengan mudah.
+        </p>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Call to Action Section -->
+<div class="container mt-5">
+  <div class="cta-section rounded-4 p-5 text-center shadow-lg bg-light">
+    <h2 class="fw-bold mb-3 text-primary">Bergabunglah Bersama Kami!</h2>
+    <p class="mb-4 text-secondary">
+      Jadilah bagian dari sekolah yang inovatif dan berintegritas. Daftar
+      sekarang dan raih masa depan gemilang bersama kami.
+    </p>
+    <a href="{{ url_for('main.register') }}" class="btn btn-gradient px-5 py-2"
+      >Mulai Daftar</a
+    >
+  </div>
+</div>
 {% endblock %} {% block styles %}
 <style>
-  .navbar {
-    padding: 1rem;
-  }
-  .hero-section {
-    background: linear-gradient(to right, #007bff, #0056b3);
-    padding: 80px 0 60px 0;
-    color: white;
-  }
-  .hero-section h1 {
-    font-size: 2.7rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-  }
-  .hero-section p {
-    font-size: 1.2rem;
-  }
-  .btn-primary {
-    background-color: #007bff;
-    border: none;
-  }
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  .btn-outline-light {
+  .custom-hero {
+    min-height: 60vh;
+    background: linear-gradient(120deg, #007bff 0%, #00c6ff 100%);
     color: #fff;
-    border: 1px solid #fff;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 0 40px 0;
   }
-  .btn-outline-light:hover {
-    background-color: #fff;
-    color: #007bff;
-  }
-  .btn-success {
-    background-color: #28a745;
+  .btn-gradient {
+    background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+    color: #fff;
     border: none;
+    font-weight: 500;
+    border-radius: 30px;
+    transition: background 0.3s;
   }
-  .btn-success:hover {
-    background-color: #218838;
+  .btn-gradient:hover {
+    background: linear-gradient(90deg, #0056b3 0%, #007bff 100%);
+    color: #fff;
   }
-  .card {
+  .btn-admin {
+    background: #ffc107;
+    color: #212529;
     border: none;
-    border-radius: 10px;
-    margin-top: 10px;
-    min-height: 270px;
+    font-weight: 500;
+    border-radius: 30px;
+    transition: background 0.3s;
   }
-  .card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
+  .btn-admin:hover {
+    background: #e0a800;
+    color: #fff;
   }
-  .card-text {
-    font-size: 1rem;
-    color: #666;
+  .info-card {
+    border-radius: 18px;
+    background: #fff;
+    transition: box-shadow 0.2s;
   }
-  .card img {
-    width: 50px;
-    height: 50px;
+  .info-card:hover {
+    box-shadow: 0 6px 24px rgba(0, 123, 255, 0.12);
+  }
+  .icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .cta-section {
+    background: linear-gradient(90deg, #f8fafc 0%, #e3f2fd 100%);
+    border: 1px solid #e3f2fd;
   }
 </style>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+/>
 {% endblock %}
