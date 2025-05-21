@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from app.models import Registrasi, Formulir, db
+from app.models import Registrasi, Formulir, db, Payment
 from flask_login import login_user, login_required, current_user
+from datetime import datetime
 
 main_bp = Blueprint('main', __name__)
 
@@ -102,7 +103,7 @@ def uploaded_file(filename):
     UPLOAD_FOLDER = 'c:/Users/user/Documents/ppdb sederhana/uploads'
     return send_from_directory(UPLOAD_FOLDER, filename)
 
-@main_bp.route('/pembayaran')
+@main_bp.route('/pembayaran', methods=['GET', 'POST'])
 @login_required
 def pembayaran():
     # Pastikan hanya siswa yang sudah diterima yang bisa akses pembayaran
@@ -110,4 +111,28 @@ def pembayaran():
     if not form or form.status != "Accepted":
         flash('Anda belum diterima oleh admin. Tunggu pemberitahuan lebih lanjut.', 'danger')
         return redirect(url_for('main.verifikasi_selesai'))
+    if request.method == 'POST':
+        payment_method = request.form.get('payment_method')
+        amount = request.form.get('amount')
+        # Simpan pembayaran ke database
+        new_payment = Payment(
+            user_id=current_user.id,
+            payment_method=payment_method,
+            amount=float(amount),
+            created_at=datetime.utcnow()
+        )
+        db.session.add(new_payment)
+        db.session.commit()
+        flash('Pembayaran berhasil!', 'success')
+        return redirect(url_for('main.home'))
     return render_template('pembayaran.html', user=current_user, form=form)
+
+@main_bp.route('/rejection_notification')
+@login_required
+def rejection_notification():
+    # Fetch the current user's form data
+    form = Formulir.query.filter_by(user_id=current_user.id).first()
+    if not form or form.status != "Rejected":
+        flash('Anda tidak memiliki notifikasi penolakan.', 'info')
+        return redirect(url_for('main.home'))
+    return render_template('rejection_notification.html', user=current_user, form=form)

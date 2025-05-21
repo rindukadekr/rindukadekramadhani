@@ -193,13 +193,16 @@ block content %}
             </tr>
           </thead>
           <tbody>
-            {% for p in paid_students %}
+            {% for p in paid_students %} {% set formulir = p.user_id and
+            (pending_students + accepted_students +
+            rejected_students)|selectattr('user_id', 'equalto',
+            p.user_id)|list|first %}
             <tr>
-              <td>{{ p.Formulir.id }}</td>
-              <td>{{ p.Formulir.name }}</td>
-              <td>{{ p.Formulir.email }}</td>
-              <td>{{ p.Formulir.phone }}</td>
-              <td>{{ p.Formulir.major }}</td>
+              <td>{{ formulir.id if formulir else '-' }}</td>
+              <td>{{ formulir.name if formulir else '-' }}</td>
+              <td>{{ formulir.email if formulir else '-' }}</td>
+              <td>{{ formulir.phone if formulir else '-' }}</td>
+              <td>{{ formulir.major if formulir else '-' }}</td>
               <td>
                 {% if p.amount is not none %} {{ "{:,.0f}".format(p.amount) }}
                 {% else %} - {% endif %}

@@ -12,9 +12,7 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 if __name__ == "__main__":
     with app.app_context():
-        # Drop all tables and recreate the database schema
-        db.drop_all()
-        db.create_all()
+        db.create_all()  # Hanya create_all, jangan drop_all
 
         # Create the admin user
         if not Registrasi.query.filter_by(username='admin').first():

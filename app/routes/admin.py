@@ -44,4 +44,7 @@ def reject_registration(form_id):
     form.status = "Rejected"
     db.session.commit()
     flash(f"Pendaftaran {form.name} telah ditolak.", "danger")
+    # Redirect ke halaman notifikasi penolakan untuk user yang bersangkutan
+    if current_user.id == form.user_id:
+        return redirect(url_for('main.rejection_notification'))
     return redirect(url_for('admin.dashboard'))
