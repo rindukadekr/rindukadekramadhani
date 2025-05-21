@@ -8,11 +8,11 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 @admin_bp.route('/dashboard')
 @login_required
 def dashboard():
-    # Hanya user yang login yang bisa akses halaman admin, tidak perlu is_admin
+    # Ambil SEMUA data sesuai kebutuhan
     pending_students = Formulir.query.filter_by(status="Pending").all()
     accepted_students = Formulir.query.filter_by(status="Accepted").all()
     rejected_students = Formulir.query.filter_by(status="Rejected").all()
-    paid_students = Payment.query.join(Formulir, Payment.user_id == Formulir.user_id).all()
+    paid_students = Payment.query.all()  # Atau join jika ingin detail
 
     return render_template(
         'admin_dashboard.html',
@@ -47,4 +47,13 @@ def reject_registration(form_id):
     # Redirect ke halaman notifikasi penolakan untuk user yang bersangkutan
     if current_user.id == form.user_id:
         return redirect(url_for('main.rejection_notification'))
+    return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/delete/<int:form_id>', methods=['POST'])
+@login_required
+def delete_registration(form_id):
+    form = Formulir.query.get_or_404(form_id)
+    db.session.delete(form)
+    db.session.commit()
+    flash(f"Data pendaftar {form.name} berhasil dihapus.", "success")
     return redirect(url_for('admin.dashboard'))

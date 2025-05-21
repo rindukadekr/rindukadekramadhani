@@ -1,16 +1,12 @@
-{% extends "layout.html" %} {% block title %}Pendaftaran Ditolak{% endblock %}
+{% extends "layout.html" %}
+{% block title %}Pendaftaran Ditolak{% endblock %}
 {% block content %}
 <div class="container mt-5">
   <div class="alert alert-danger text-center">
     <h4>Pendaftaran Anda Ditolak</h4>
-    <p>
-      Maaf, pendaftaran atas nama <strong>{{ form.name }}</strong> dengan
-      jurusan <strong>{{ form.major }}</strong> telah ditolak oleh admin.
-    </p>
+    <p>Maaf, pendaftaran atas nama <strong>{{ form.name }}</strong> dengan jurusan <strong>{{ form.major }}</strong> telah ditolak oleh admin.</p>
     <p>Silakan hubungi pihak sekolah untuk informasi lebih lanjut.</p>
-    <a href="{{ url_for('main.home') }}" class="btn btn-primary mt-3"
-      >Kembali ke Beranda</a
-    >
+    <a href="{{ url_for('main.home') }}" class="btn btn-primary mt-3">Kembali ke Beranda</a>
   </div>
 </div>
 {% endblock %}

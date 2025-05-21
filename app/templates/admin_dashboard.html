@@ -55,6 +55,8 @@ block content %}
                   class="btn btn-danger btn-sm"
                   >Tolak</a
                 >
+                {# Hapus tombol Delete di bagian Verifikasi Pendaftar
+                (pending_students) #}
               </td>
             </tr>
             {% else %}
@@ -85,6 +87,7 @@ block content %}
               <th>Asal Sekolah</th>
               <th>Jurusan</th>
               <th>Foto Ijazah</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -107,6 +110,18 @@ block content %}
                   class="img-thumbnail"
                 />
                 {% else %} - {% endif %}
+              </td>
+              <td>
+                <form
+                  method="post"
+                  action="{{ url_for('admin.delete_registration', form_id=s.id) }}"
+                  style="display: inline"
+                  onsubmit="return confirm('Yakin ingin menghapus data ini?');"
+                >
+                  <button type="submit" class="btn btn-secondary btn-sm">
+                    Hapus
+                  </button>
+                </form>
               </td>
             </tr>
             {% else %}
@@ -137,6 +152,7 @@ block content %}
               <th>Asal Sekolah</th>
               <th>Jurusan</th>
               <th>Foto Ijazah</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -159,6 +175,18 @@ block content %}
                   class="img-thumbnail"
                 />
                 {% else %} - {% endif %}
+              </td>
+              <td>
+                <form
+                  method="post"
+                  action="{{ url_for('admin.delete_registration', form_id=s.id) }}"
+                  style="display: inline"
+                  onsubmit="return confirm('Yakin ingin menghapus data ini?');"
+                >
+                  <button type="submit" class="btn btn-secondary btn-sm">
+                    Hapus
+                  </button>
+                </form>
               </td>
             </tr>
             {% else %}

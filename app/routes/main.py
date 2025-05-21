@@ -136,3 +136,7 @@ def rejection_notification():
         flash('Anda tidak memiliki notifikasi penolakan.', 'info')
         return redirect(url_for('main.home'))
     return render_template('rejection_notification.html', user=current_user, form=form)
+
+@main_bp.route('/sekolah_info')
+def sekolah_info():
+    return render_template('sekolah_info.html')
