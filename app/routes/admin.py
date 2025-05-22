@@ -12,7 +12,13 @@ def dashboard():
     pending_students = Formulir.query.filter_by(status="Pending").all()
     accepted_students = Formulir.query.filter_by(status="Accepted").all()
     rejected_students = Formulir.query.filter_by(status="Rejected").all()
-    paid_students = Payment.query.all()  # Atau join jika ingin detail
+    paid_students = Payment.query.join(Formulir, Payment.user_id == Formulir.user_id).all()
+
+    # Statistik
+    total_pendaftar = Formulir.query.count()
+    total_pending = Formulir.query.filter_by(status="Pending").count()
+    total_accepted = Formulir.query.filter_by(status="Accepted").count()
+    total_rejected = Formulir.query.filter_by(status="Rejected").count()
 
     return render_template(
         'admin_dashboard.html',
@@ -20,7 +26,11 @@ def dashboard():
         pending_students=pending_students,
         accepted_students=accepted_students,
         rejected_students=rejected_students,
-        paid_students=paid_students
+        paid_students=paid_students,
+        total_pendaftar=total_pendaftar,
+        total_pending=total_pending,
+        total_accepted=total_accepted,
+        total_rejected=total_rejected
     )
 
 @admin_bp.route('/accept/<int:form_id>')

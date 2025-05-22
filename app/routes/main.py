@@ -53,6 +53,7 @@ def verifikasi_siswa():
         phone = request.form.get('phone')
         address = request.form.get('address')
         birth_date_str = request.form.get('birth_date')
+        # Hapus pengambilan gender
         school_origin = request.form.get('school_origin')
         major = request.form.get('major')
         foto_ijazah = request.files.get('foto_ijazah')
@@ -81,6 +82,7 @@ def verifikasi_siswa():
             phone=phone,
             address=address,
             birth_date=birth_date,
+            # gender dihapus
             school_origin=school_origin,
             major=major,
             foto_ijazah=filename
