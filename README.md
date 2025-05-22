@@ -65,3 +65,7 @@ ppdb sederhana/
 ## Lisensi
 
 Aplikasi ini bebas digunakan untuk pembelajaran dan pengembangan lebih lanjut.
+
+# rindukadekramadhani
+
+f8ee35b18c7901793027724601ce056ccb133a9d
